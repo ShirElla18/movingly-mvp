@@ -26,7 +26,7 @@ function initTasks() {
     const taskList = document.getElementById('task-list');
     let tasks = JSON.parse(localStorage.getItem('movingly_tasks'));
     if (!tasks || tasks.length === 0) {
-        tasks = [...defaultTasks]; // ודאי שב-defaultTasks לכל משימה יש שדה stage (למשל: 'month', 'week', 'after')
+        tasks = [...defaultTasks];
         localStorage.setItem('movingly_tasks', JSON.stringify(tasks));
     }
 
@@ -34,52 +34,42 @@ function initTasks() {
         taskList.innerHTML = '';
         let completedCount = 0;
 
-        // 1. הגדרת הקטגוריות, השמות הוויזואליים והצבעים שלהן (באמצעות קלאסים של CSS)
+        
         const categories = {
             'month': { title: '📅 חודש לפני המעבר', className: 'stage-month' },
             'week': { title: '⏳ שבוע לפני המעבר', className: 'stage-week' },
             'after': { title: '🏡 אחרי המעבר', className: 'stage-after' }
         };
 
-        // 2. יצירת המכולות (Containers) הוויזואליות לכל שלב
+
         Object.keys(categories).forEach(stageKey => {
             const stageData = categories[stageKey];
-            
+
             const stageSection = document.createElement('div');
             stageSection.className = `stage-section ${stageData.className}`;
-            stageSection.innerHTML = `<h3 class="stage-title">${stageData.title}</h3><ul class="stage-sub-list"></ul>`;
-            
+            stageSection.innerHTML = `<h3 class="stage-title">${stageData.title}</h3><ul class="stage-sub-list" id="list-${stageKey}"></ul>`;
             taskList.appendChild(stageSection);
         });
 
-
-        // 3. רינדור המשימות לתוך הקטגוריות המתאימות שלהן
+        // מיון המשימות לפי קטגוריות    
         tasks.forEach((task, index) => {
             if (task.completed) completedCount++;
 
             const li = document.createElement('li');
-        
-            li.className = `task-item ${task.completed ? 'completed' : ''}`;
-            
-            li.innerHTML = `
-                <input type="checkbox" id="task-${index}" ${task.completed ? 'checked' : ''}>
-                <label for="task-${index}"><span>${task.title}</span></label>
-            `;
 
+            li.className = `task-item ${task.completed ? 'completed' : ''}`;
+            li.innerHTML = `<input type="checkbox" id="task-${index}" ${task.completed ? 'checked' : ''}>
+                            <label for="task-${index}"><span>${task.title}</span></label>`;
             li.querySelector('input').addEventListener('change', (e) => {
                 tasks[index].completed = e.target.checked;
                 localStorage.setItem('movingly_tasks', JSON.stringify(tasks));
                 renderTasks(); 
             });
-
-            // מציאת הרשימה הפנימית הנכונה לפי ה-stage של המשימה
-            const targetSection = taskList.querySelector(`.${categories[task.stage || 'month'].className} .stage-sub-list`);
-            if (targetSection) {
-                targetSection.appendChild(li);
-            }
+            const targetSection = document.getElementById(`list-${task.stage || 'month'}`);
+            if (targetSection) targetSection.appendChild(li);
         });
 
-        // 4. עדכון מד ההתקדמות (נשאר בדיוק כפי שכתבת)
+
         const progressPercentage = Math.round((completedCount / tasks.length) * 100) || 0;
         document.getElementById('progress-bar-fill').style.width = `${progressPercentage}%`;
         document.getElementById('progress-text').innerText = `${progressPercentage}% מההכנות הושלמו`;

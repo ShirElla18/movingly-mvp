@@ -239,3 +239,9 @@ body {
     padding: 0;
     margin: 0;
 }
+.stage-section { margin-bottom: 24px; padding: 16px; border-radius: 16px; background: var(--white); border: 1px solid #EDF2F7; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+.stage-title { margin: 0 0 12px 0; font-size: 16px; color: var(--brand-navy); font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.stage-month { border-right: 6px solid #A8C6FA; }
+.stage-week { border-right: 6px solid #FBD38D; }
+.stage-after { border-right: 6px solid #68D391; }
+.stage-sub-list { list-style: none; padding: 0; margin: 0; }
