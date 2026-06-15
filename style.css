@@ -208,3 +208,34 @@ body {
 	cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 500;
 }
 .nav-item.active { color: var(--brand-green); font-weight: 700; }
+/* --- עיצוב קטגוריות לוח התכנון (עבור פיצ'ר 3 המשודרג) --- */
+
+.stage-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    border-radius: 16px;
+    background: var(--white);
+    border: 1px solid #EDF2F7;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.stage-title {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    color: var(--brand-navy);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* הגדרת צבעי הצד (Border) לכל שלב */
+.stage-month { border-right: 6px solid #A8C6FA; } /* תכלת רך - חודש לפני */
+.stage-week { border-right: 6px solid #FBD38D; }  /* כתום-אפרסק רך - שבוע לפני */
+.stage-after { border-right: 6px solid #68D391; } /* ירוק רך - אחרי המעבר */
+
+.stage-sub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
