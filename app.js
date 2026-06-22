@@ -21,7 +21,7 @@ function initNavigation() {
     });
 }
 
-
+// --- ניהול משימות ורשימות לפי שלבים ---
 function initTasks() {
     const taskList = document.getElementById('task-list');
     let tasks = JSON.parse(localStorage.getItem('movingly_tasks'));
@@ -34,16 +34,19 @@ function initTasks() {
         taskList.innerHTML = '';
         let completedCount = 0;
 
-        
         const categories = {
-            'month': { title: '📅 חודש לפני המעבר', className: 'stage-month' },
-            'week': { title: '⏳ שבוע לפני המעבר', className: 'stage-week' },
-            'after': { title: '🏡 אחרי המעבר', className: 'stage-after' }
+            'month': { title: '📅 חודש לפני המעבר - טפסים ובירוקרטיה', className: 'stage-month' },
+            'week': { title: '⏳ שבוע לפני המעבר - אריזה ומיון', className: 'stage-week' },
+            'after': { title: '🏡 אחרי המעבר - יום המעבר והתאקלמות', className: 'stage-after' }
         };
 
-
+        // יצירת מבנה הקטגוריות
         Object.keys(categories).forEach(stageKey => {
             const stageData = categories[stageKey];
+
+            // נבדוק קודם אם יש משימות השייכות לשלב הזה, כדי לא לרנדר סתם קופסאות ריקות
+            const hasTasksInStage = tasks.some(t => (t.stage || 'month') === stageKey);
+            if (!hasTasksInStage) return;
 
             const stageSection = document.createElement('div');
             stageSection.className = `stage-section ${stageData.className}`;
@@ -51,25 +54,32 @@ function initTasks() {
             taskList.appendChild(stageSection);
         });
 
-        // מיון המשימות לפי קטגוריות    
+        // מיון והזרקת המשימות לתוך תתי-הרשימות המתאימות
         tasks.forEach((task, index) => {
             if (task.completed) completedCount++;
 
             const li = document.createElement('li');
-
             li.className = `task-item ${task.completed ? 'completed' : ''}`;
-            li.innerHTML = `<input type="checkbox" id="task-${index}" ${task.completed ? 'checked' : ''}>
-                            <label for="task-${index}"><span>${task.title}</span></label>`;
+            li.style.cursor = 'pointer'; // הפיכת כל השורה ללחיצה
+            li.innerHTML = `
+                <input type="checkbox" id="task-${index}" ${task.completed ? 'checked' : ''}>
+                <label for="task-${index}" style="cursor: pointer; flex: 1; padding-right: 5px;">
+                    <span>${task.title}</span>
+                </label>
+            `;
+
+            // האזנה לשינוי ישירות מהשורה כולה לחוויית שימוש נוחה בנייד
             li.querySelector('input').addEventListener('change', (e) => {
                 tasks[index].completed = e.target.checked;
                 localStorage.setItem('movingly_tasks', JSON.stringify(tasks));
                 renderTasks(); 
             });
+
             const targetSection = document.getElementById(`list-${task.stage || 'month'}`);
             if (targetSection) targetSection.appendChild(li);
         });
 
-
+        // עדכון אחוז ההתקדמות במד העליון
         const progressPercentage = Math.round((completedCount / tasks.length) * 100) || 0;
         document.getElementById('progress-bar-fill').style.width = `${progressPercentage}%`;
         document.getElementById('progress-text').innerText = `${progressPercentage}% מההכנות הושלמו`;
@@ -78,9 +88,11 @@ function initTasks() {
     renderTasks();
 }
 
-// --- ספקים (Marketplace) ---
+// --- ספקים ושירותים (Marketplace) ---
 function initProviders() {
     const container = document.getElementById('providers-container');
+    if (!container) return;
+    container.innerHTML = ''; // מניעת שכפול כרטיסים בריצה חוזרת
     
     providersData.forEach(provider => {
         const div = document.createElement('div');

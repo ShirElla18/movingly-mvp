@@ -1,17 +1,19 @@
 const defaultTasks = [
-    { id: 1, title: "מיון חפצים (לזרוק, לתרום, לארוז)", completed: false },
-    { id: 2, title: "הזמנת קרטונים וחומרי אריזה", completed: false },
-    { id: 3, title: "סגירת חברת הובלה", completed: false },
-    { id: 4, title: "עדכון כתובת במשרד הפנים וברשויות", completed: false },
-    { id: 5, title: "אריזת בגדי חורף/קיץ שלא בשימוש", completed: false },
-    { id: 6, title: "העברת אינטרנט ותשתיות לדירה החדשה", completed: false },
-    { id: 7, title: "ניקיון הדירה החדשה (לפני כניסה)", completed: false },
-    { id: 8, title: "אריזת מטבח וכלים שבירים", completed: false },
-    { id: 9, title: "הכנת תיק ציוד אישי ליום המעבר", completed: false },
-    { id: 10, title: "קריאת מוני חשמל ומים בדירה הישנה", completed: false }
+    { id: 1, title: "עדכון כתובת במשרד הפנים וברשויות", completed: false, stage: "month" },
+    { id: 2, title: "העברת אינטרנט ותשתיות לדירה החדשה", completed: false, stage: "month" },
+    { id: 3, title: "סגירת חברת הובלה ושירותי אריזה", completed: false, stage: "month" },
+    { id: 4, title: "הזמנת קרטונים וחומרי אריזה בדירוג גבוה", completed: false, stage: "month" },
+    
+    { id: 5, title: "מיון חפצים (לזרוק, לתרום, לארוז)", completed: false, stage: "week" },
+    { id: 6, title: "אריזת בגדי חורף/קיץ שלא בשימוש", completed: false, stage: "week" },
+    { id: 7, title: "ניקיון הדירה החדשה (לפני כניסת המובילים)", completed: false, stage: "week" },
+    { id: 8, title: "אריזת מטבח וכלים שבירים (עטופים בפצפץ)", completed: false, stage: "week" },
+    
+    { id: 9, title: "הכנת תיק ציוד אישי ומסמכים ליום המעבר", completed: false, stage: "after" },
+    { id: 10, title: "קריאת מוני חשמל ומים בדירה הישנה והחדשה", completed: false, stage: "after" }
 ];
 
-// רשימת הספקים
+// רשימת הספקים (Marketplace של שירותים)
 const providersData = [
     { 
         id: 1, 
