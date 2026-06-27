@@ -141,7 +141,7 @@ function initProviders() {
     // השורה העליונה: מומלצים ע"י ה-AI (אוסף מכל הקטגוריות)
     const recommended = providersData.filter(p => p.recommended);
     if (recommended.length) {
-        container.appendChild(createSwimlane('מומלצים עבורך ע"י ה-AI', recommended, true));
+        container.appendChild(createSwimlane('מומלצים עבורך', recommended, true));
     }
 
     // שורה לכל קטגוריה, לפי הסדר המבוקש
