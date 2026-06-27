@@ -413,6 +413,23 @@ body {
 .toggle-switch input:checked + .toggle-slider { background-color: var(--brand-green); }
 .toggle-switch input:checked + .toggle-slider::before { transform: translateX(-20px); }
 
+/* כפתור איפוס תהליך המעבר (בולט) */
+.reset-process-btn {
+    background: #E53E3E;
+    color: var(--white);
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.25);
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+.reset-process-btn:hover { background: #C53030; }
+.reset-process-btn:active { transform: scale(0.97); }
+
 /* --- מאגר ספקים בסגנון Netflix (Swimlanes / קרוסלות) --- */
 .swimlane { margin-bottom: 26px; }
 

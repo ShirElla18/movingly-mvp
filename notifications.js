@@ -7,7 +7,7 @@ function showMotivationPopup(taskTitle) {
   const messages = [
     `איזה יופי! המשימה "${taskTitle}" מאחוריך. את בדרך הנכונה! 💪`,
     `אלופה! השלמת את "${taskTitle}". קחי נשימה, הכל מתקדם לפי התוכנית 🏡`,
-    `מעולה רעות! פחות דאגה אחת על הראש. "${taskTitle}" הושלמה בהצלחה ✨`,
+    `מעולה! פחות דאגה אחת על הראש. "${taskTitle}" הושלמה בהצלחה ✨`,
     `כל הכבוד! עשית צעד חשוב עכשיו כשסיימת עם "${taskTitle}" 🚀`
   ];
 
@@ -42,7 +42,7 @@ function checkSmartReminders(diffDays) {
 
   // לוגיקה חכמה פרואקטיבית
   if (diffDays <= 14 && moversTask && !moversTask.completed) {
-    reminderMsg = "רעות, נשארו פחות משבועיים למעבר! זה הזמן המדויק לסגור מוביל כדי להבטיח זמינות ומחיר טוב.";
+    reminderMsg = " נשארו פחות משבועיים למעבר! זה הזמן המדויק לסגור מוביל כדי להבטיח זמינות ומחיר טוב.";
   } else if (diffDays <= 7 && boxesTask && !boxesTask.completed) {
     reminderMsg = "שבוע למעבר הגדול! האם כבר הזמנת קרטונים וחומרי אריזה? אל תחכי לרגע האחרון.";
   } else if (diffDays > 0 && diffDays <= 30) {
@@ -141,13 +141,15 @@ function renderNotifications() {
   `).join('');
 
   popover.querySelectorAll('.notif-confirm').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const taskId = Number(btn.closest('.notif-item').dataset.taskId);
       confirmNotification(taskId);
     });
   });
   popover.querySelectorAll('.notif-snooze').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       snoozeNotification(btn.closest('.notif-item').dataset.id);
     });
   });

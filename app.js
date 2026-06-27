@@ -141,7 +141,7 @@ function initProviders() {
     // השורה העליונה: מומלצים ע"י ה-AI (אוסף מכל הקטגוריות)
     const recommended = providersData.filter(p => p.recommended);
     if (recommended.length) {
-        container.appendChild(createSwimlane('מומלצים עבורך', recommended, true));
+        container.appendChild(createSwimlane('מומלצים עבורך ע"י ה-AI', recommended, true));
     }
 
     // שורה לכל קטגוריה, לפי הסדר המבוקש
@@ -152,6 +152,45 @@ function initProviders() {
             container.appendChild(createSwimlane(cat, inCategory));
         }
     });
+}
+
+// --- הגדרות התראות ומוטיבציה ---
+function initSettings() {
+    const morning = document.getElementById('setting-morning');
+    const evening = document.getElementById('setting-evening');
+    const motivation = document.getElementById('setting-motivation');
+
+    if (morning && evening && motivation) {
+        const defaults = { morning: true, evening: true, motivation: false };
+        const saved = JSON.parse(localStorage.getItem('movingly_settings')) || defaults;
+
+        morning.checked = saved.morning;
+        evening.checked = saved.evening;
+        motivation.checked = saved.motivation;
+
+        const persist = () => {
+            localStorage.setItem('movingly_settings', JSON.stringify({
+                morning: morning.checked,
+                evening: evening.checked,
+                motivation: motivation.checked
+            }));
+        };
+
+        [morning, evening, motivation].forEach(el => el.addEventListener('change', persist));
+    }
+
+    // איפוס מלא של תהליך המעבר (לצורכי הצגת ה-MVP מההתחלה)
+    const resetBtn = document.getElementById('reset-process-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            const confirmed = confirm('לאפס את כל תהליך המעבר? כל הנתונים שהוגדרו (משימות ולוח התכנון, תאריך המעבר, מד ההתקדמות וההגדרות) יימחקו ויחזרו למצב התחלתי.');
+            if (!confirmed) return;
+            localStorage.removeItem('movingly_tasks');
+            localStorage.removeItem('movingly_date');
+            localStorage.removeItem('movingly_settings');
+            location.reload();
+        });
+    }
 }
 
 // --- התראות וספירה לאחור ---
