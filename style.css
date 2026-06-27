@@ -450,3 +450,125 @@ body {
     border: 2px solid var(--brand-green);
     box-shadow: 0 6px 16px rgba(47, 133, 90, 0.15);
 }
+
+/* --- מרכז התראות גלובלי (פעמון) --- */
+.app-header { position: relative; }
+
+/* הפעמון בקצה השמאלי-העליון (פיזית שמאל, גם ב-RTL) */
+.notif-bell {
+    position: absolute;
+    top: 22px;
+    left: 15px;
+    background: var(--white);
+    border: 1px solid #EDF2F7;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.notif-badge {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: #E53E3E;
+    color: var(--white);
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--white);
+}
+
+/* בועת ההתראות */
+.notif-popover {
+    position: absolute;
+    top: 70px;
+    left: 15px;
+    width: 300px;
+    max-width: 85vw;
+    max-height: 60vh;
+    overflow-y: auto;
+    background: var(--white);
+    border: 1px solid #EDF2F7;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    padding: 10px;
+    z-index: 30;
+    text-align: right;
+    animation: fadeIn 0.2s ease-in-out;
+}
+.notif-popover[hidden] { display: none; }
+
+/* חץ קטן שמצביע אל הפעמון */
+.notif-popover::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 24px;
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    border-left: 1px solid #EDF2F7;
+    border-top: 1px solid #EDF2F7;
+    transform: rotate(45deg);
+}
+
+.notif-empty {
+    padding: 18px 10px;
+    text-align: center;
+    color: var(--text-gray);
+    font-size: 14px;
+}
+
+.notif-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--bg-color);
+    border: 1px solid #EDF2F7;
+    margin-bottom: 8px;
+}
+.notif-item:last-child { margin-bottom: 0; }
+
+.notif-text {
+    margin: 0;
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-dark);
+}
+
+.notif-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.notif-btn {
+    background: var(--white);
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease;
+}
+.notif-btn:active { transform: scale(0.9); }
