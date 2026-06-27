@@ -412,3 +412,41 @@ body {
 }
 .toggle-switch input:checked + .toggle-slider { background-color: var(--brand-green); }
 .toggle-switch input:checked + .toggle-slider::before { transform: translateX(-20px); }
+
+/* --- מאגר ספקים בסגנון Netflix (Swimlanes / קרוסלות) --- */
+.swimlane { margin-bottom: 26px; }
+
+.swimlane-title {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brand-navy);
+}
+
+/* קרוסלה אופקית נגללת, ידידותית לנייד עם פסי גלילה מוסתרים */
+.swimlane-track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 10px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+}
+.swimlane-track::-webkit-scrollbar { display: none; }
+
+/* כרטיס ספק ברוחב קבוע כדי שייגלל אופקית (במקום למלא לרוחב) */
+.swimlane-track .supplier-card {
+    flex: 0 0 auto;
+    width: 240px;
+    margin-bottom: 0;
+    scroll-snap-align: start;
+}
+
+/* הדגשת שורת ה-AI כדי שתבלוט */
+.swimlane-ai .swimlane-title { color: var(--brand-green); }
+.swimlane-ai .supplier-card {
+    border: 2px solid var(--brand-green);
+    box-shadow: 0 6px 16px rgba(47, 133, 90, 0.15);
+}

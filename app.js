@@ -89,19 +89,20 @@ function initTasks() {
     renderTasks();
 }
 
-// --- ספקים ושירותים (Marketplace) ---
+// --- ספקים ושירותים (Marketplace בסגנון Netflix - Swimlanes) ---
 function initProviders() {
     const container = document.getElementById('providers-container');
     if (!container) return;
     container.innerHTML = ''; // מניעת שכפול כרטיסים בריצה חוזרת
-    
-    providersData.forEach(provider => {
+
+    // יצירת כרטיס ספק בודד (שומר על מבנה הכרטיס הקיים)
+    const createSupplierCard = (provider) => {
         const div = document.createElement('div');
         div.className = 'supplier-card';
         div.innerHTML = `
             <div class="supplier-info">
                 <h3>${provider.name}</h3>
-                <p>📍 תחומי פעילות מרכז</p>
+                <p>📍 ${provider.role}</p>
                 <div class="supplier-rating">${provider.rating}</div>
             </div>
             <div class="supplier-actions">
@@ -109,7 +110,40 @@ function initProviders() {
                 <button class="supplier-btn-outline" onclick="alert('פונקציית דירוג תפתח כאן')">✎ דרג ספק</button>
             </div>
         `;
-        container.appendChild(div);
+        return div;
+    };
+
+    // יצירת שורת קטגוריה (Swimlane) עם קרוסלה אופקית
+    const createSwimlane = (title, providers, isAi = false) => {
+        const lane = document.createElement('div');
+        lane.className = `swimlane ${isAi ? 'swimlane-ai' : ''}`;
+
+        const heading = document.createElement('h3');
+        heading.className = 'swimlane-title';
+        heading.textContent = isAi ? `✨ ${title}` : title;
+        lane.appendChild(heading);
+
+        const track = document.createElement('div');
+        track.className = 'swimlane-track';
+        providers.forEach(p => track.appendChild(createSupplierCard(p)));
+        lane.appendChild(track);
+
+        return lane;
+    };
+
+    // השורה העליונה: מומלצים ע"י ה-AI (אוסף מכל הקטגוריות)
+    const recommended = providersData.filter(p => p.recommended);
+    if (recommended.length) {
+        container.appendChild(createSwimlane('מומלצים עבורך ע"י ה-AI', recommended, true));
+    }
+
+    // שורה לכל קטגוריה, לפי הסדר המבוקש
+    const categories = ['הובלות', 'הנדימן ותחזוקה', 'ניקיון וסידור הבית'];
+    categories.forEach(cat => {
+        const inCategory = providersData.filter(p => p.category === cat);
+        if (inCategory.length) {
+            container.appendChild(createSwimlane(cat, inCategory));
+        }
     });
 }
 
