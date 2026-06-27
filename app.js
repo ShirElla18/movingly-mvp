@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTasks();
     initProviders();
     initCountdown();
+    initSettings();
 });
 
 // --- מערכת ניווט ---
@@ -110,6 +111,31 @@ function initProviders() {
         `;
         container.appendChild(div);
     });
+}
+
+// --- הגדרות התראות ומוטיבציה ---
+function initSettings() {
+    const morning = document.getElementById('setting-morning');
+    const evening = document.getElementById('setting-evening');
+    const motivation = document.getElementById('setting-motivation');
+    if (!morning || !evening || !motivation) return;
+
+    const defaults = { morning: true, evening: true, motivation: false };
+    const saved = JSON.parse(localStorage.getItem('movingly_settings')) || defaults;
+
+    morning.checked = saved.morning;
+    evening.checked = saved.evening;
+    motivation.checked = saved.motivation;
+
+    const persist = () => {
+        localStorage.setItem('movingly_settings', JSON.stringify({
+            morning: morning.checked,
+            evening: evening.checked,
+            motivation: motivation.checked
+        }));
+    };
+
+    [morning, evening, motivation].forEach(el => el.addEventListener('change', persist));
 }
 
 // --- התראות וספירה לאחור ---

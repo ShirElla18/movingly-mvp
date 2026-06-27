@@ -67,16 +67,48 @@
         <section id="chat-view" class="view">
             <div id="chat-history" class="chat-history">
                 <div class="chat-bubble ai-bubble">
-                    היי רעות, כיוון שאת נמצאת בשלב 3 (שבועיים למעבר). הנה מדריך בזק לאריזת המטבח. איך אוכל לעזור עוד?
+                    היי, אני מובי. אני העוזר האישי שלך למעבר הדירה. איך אוכל לעזור?
                 </div>
             </div>
             <div class="chat-quick-replies">
-                <button class="quick-reply-btn">איך לארוז את הסלון?</button>
-                <button class="quick-reply-btn">שאלי אותי על עיצוב</button>
+                <button class="quick-reply-btn">עזרה באריזה</button>
+                <button class="quick-reply-btn">ייעוץ על עיצוב וארגון הבית</button>
+                <button class="quick-reply-btn">עזרה והכוונה באפליקציה</button>
+                <button class="quick-reply-btn">ספר לי על השכונה החדשה שלי</button>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chat-input" placeholder="הקלידי הודעה...">
                 <button id="send-chat-btn">➔</button>
+            </div>
+        </section>
+
+        <section id="settings-view" class="view">
+            <div class="settings-card">
+                <h2 class="settings-title">הגדרות התראות ומוטיבציה</h2>
+                <p class="settings-subtitle">מתי טוב לך לקבל תזכורות והודעות עידוד מהאפליקציה?</p>
+
+                <div class="settings-section">
+                    <h3 class="settings-section-title">Time Slots</h3>
+                    <label class="settings-row">
+                        <input type="checkbox" id="setting-morning" checked>
+                        <span>התראות בוקר (לפני היציאה לעבודה) – 08:00</span>
+                    </label>
+                    <label class="settings-row">
+                        <input type="checkbox" id="setting-evening" checked>
+                        <span>התראות ערב (אחרי שעות העבודה) – 19:30</span>
+                    </label>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="settings-section-title">Toggle Switch</h3>
+                    <label class="settings-row settings-toggle-row">
+                        <span class="toggle-switch">
+                            <input type="checkbox" id="setting-motivation">
+                            <span class="toggle-slider"></span>
+                        </span>
+                        <span>קבלת הודעות מוטיבציה וחיזוקים/תזכורות</span>
+                    </label>
+                </div>
             </div>
         </section>
     </main>
@@ -91,7 +123,7 @@
         <button class="nav-item" data-target="chat-view">
             <span style="font-size: 20px;">🤖</span> סייען AI
         </button>
-        <button class="nav-item" onclick="alert('מסך הגדרות ייבנה בהמשך')">
+        <button class="nav-item" data-target="settings-view">
             <span style="font-size: 20px;">⚙️</span> הגדרות
         </button>
     </nav>
